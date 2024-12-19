@@ -1,58 +1,38 @@
 name: Context Infos
 on: [workflow_dispatch, pull_request] 
 jobs:
-  github:
+  log-context:
     runs-on: ubuntu-latest
     steps:
       - name: Context Github
         run: echo "${{toJSON(github)}}"
-  env:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Env
         run: echo "${{toJSON(env)}}"
-  vars:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Vars
         run: echo "${{toJSON(vars)}}"
-  job:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Job
         run: echo "${{toJSON(job)}}"
-  steps:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Steps
         run: echo "${{toJSON(steps)}}"
-  runner:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Runner
         run: echo "${{toJSON(runner)}}"
-  secrets:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Secrets
         run: echo "${{toJSON(secrets)}}"
-  strategy:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Strategy
         run: echo "${{toJSON(strategy)}}"
-  matrix:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Matrix
         run: echo "${{toJSON(matrix)}}"
-  needs:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Needs
         run: echo "${{toJSON(needs)}}"
-  inputs:
-    runs-on: ubuntu-latest
     steps:
       - name: Context Inputs
         run: echo "${{toJSON(inputs)}}"
