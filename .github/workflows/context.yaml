@@ -1,58 +1,58 @@
-name: Log Github Context
+name: Context Infos
 on: [workflow_dispatch, pull_request] 
 jobs:
   github:
     runs-on: ubuntu-latest
     steps:
-      - name: Log github
+      - name: Context Github
         run: echo "${{toJSON(github)}}"
   env:
     runs-on: ubuntu-latest
     steps:
-      - name: Log env
+      - name: Context Env
         run: echo "${{toJSON(env)}}"
   vars:
     runs-on: ubuntu-latest
     steps:
-      - name: Log vars
+      - name: Context Vars
         run: echo "${{toJSON(vars)}}"
   job:
     runs-on: ubuntu-latest
     steps:
-      - name: Log job
+      - name: Context Job
         run: echo "${{toJSON(job)}}"
   steps:
     runs-on: ubuntu-latest
     steps:
-      - name: Log steps
+      - name: Context Steps
         run: echo "${{toJSON(steps)}}"
   runner:
     runs-on: ubuntu-latest
     steps:
-      - name: Log runner
+      - name: Context Runner
         run: echo "${{toJSON(runner)}}"
   secrets:
     runs-on: ubuntu-latest
     steps:
-      - name: Log secrets
+      - name: Context Secrets
         run: echo "${{toJSON(secrets)}}"
   strategy:
     runs-on: ubuntu-latest
     steps:
-      - name: Log strategy
+      - name: Context Strategy
         run: echo "${{toJSON(strategy)}}"
   matrix:
     runs-on: ubuntu-latest
     steps:
-      - name: Log matrix
+      - name: Context Matrix
         run: echo "${{toJSON(matrix)}}"
   needs:
     runs-on: ubuntu-latest
     steps:
-      - name: Log needs
+      - name: Context Needs
         run: echo "${{toJSON(needs)}}"
   inputs:
     runs-on: ubuntu-latest
     steps:
-      - name: Log inputs
+      - name: Context Inputs
         run: echo "${{toJSON(inputs)}}"
