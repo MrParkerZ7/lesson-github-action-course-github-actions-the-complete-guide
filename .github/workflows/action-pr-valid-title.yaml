@@ -1,0 +1,15 @@
+name: Action Pull_Request
+on:
+  pull_request:
+
+jobs:
+  pr-title-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR title contains "PR:"
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if [[ ! "$PR_TITLE" =~ [Pp][Rr]: ]]; then
+            echo "Error: PR title must contain 'PR:' (case-insensitive)"
+            exit 1
+          fi
