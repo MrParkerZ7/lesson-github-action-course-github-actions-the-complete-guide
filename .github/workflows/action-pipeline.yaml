@@ -1,8 +1,13 @@
-name: action ci/cd pipeline
+name: Action Run Pipeline
 on: 
   push:
   workflow_dispatch:
 jobs:
+  log-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log github
+        run: echo "${{toJSON(github)}}"
   test:
     runs-on: ubuntu-latest
     steps: 
