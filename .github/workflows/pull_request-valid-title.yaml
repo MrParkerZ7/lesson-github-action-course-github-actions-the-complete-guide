@@ -1,4 +1,4 @@
-name: Action Pull_Request
+name: Pull_Request - Valid Title
 on:
   pull_request:
 
