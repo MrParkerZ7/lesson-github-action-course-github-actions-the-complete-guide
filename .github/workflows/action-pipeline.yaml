@@ -1,7 +1,11 @@
 name: Action Run Pipeline
 on: 
-  push:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
 jobs:
   log-context:
     runs-on: ubuntu-latest
