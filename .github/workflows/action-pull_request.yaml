@@ -8,11 +8,6 @@ on:
       - reopened
       - synchronize
 jobs:
-  log-context:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log github
-        run: echo "${{toJSON(github)}}"
   test:
     runs-on: ubuntu-latest
     steps: 
