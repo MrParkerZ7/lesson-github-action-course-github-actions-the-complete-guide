@@ -1,10 +1,11 @@
 name: Action Pull_Request
 on: 
   pull_request:
-    - opened
-    - edited
-    - reopened
-    - synchronize
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
 jobs:
   log-context:
     runs-on: ubuntu-latest
