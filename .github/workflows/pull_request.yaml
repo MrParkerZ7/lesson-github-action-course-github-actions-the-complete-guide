@@ -1,4 +1,4 @@
-name: Action Pull_Request
+name: Pull_Request - Build Test
 on: 
   workflow_dispatch:
   pull_request:

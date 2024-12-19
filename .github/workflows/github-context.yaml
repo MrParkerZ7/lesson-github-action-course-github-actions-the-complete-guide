@@ -1,8 +1,63 @@
 name: Log Github Context
 on: [workflow_dispatch, pull_request] 
 jobs:
-  log-context:
+  github:
     runs-on: ubuntu-latest
     steps:
       - name: Log github
         run: echo "${{toJSON(github)}}"
+  env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log env
+        run: echo "${{toJSON(env)}}"
+  vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log vars
+        run: echo "${{toJSON(vars)}}"
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log job
+        run: echo "${{toJSON(job)}}"
+  jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log jobs
+        run: echo "${{toJSON(jobs)}}"
+  steps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log steps
+        run: echo "${{toJSON(steps)}}"
+  runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log runner
+        run: echo "${{toJSON(runner)}}"
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log secrets
+        run: echo "${{toJSON(secrets)}}"
+  strategy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log strategy
+        run: echo "${{toJSON(strategy)}}"
+  matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log matrix
+        run: echo "${{toJSON(matrix)}}"
+  needs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log needs
+        run: echo "${{toJSON(needs)}}"
+  inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log inputs
+        run: echo "${{toJSON(inputs)}}"
