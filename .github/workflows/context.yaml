@@ -6,33 +6,23 @@ jobs:
     steps:
       - name: Context Github
         run: echo "${{toJSON(github)}}"
-    steps:
       - name: Context Env
         run: echo "${{toJSON(env)}}"
-    steps:
       - name: Context Vars
         run: echo "${{toJSON(vars)}}"
-    steps:
       - name: Context Job
         run: echo "${{toJSON(job)}}"
-    steps:
       - name: Context Steps
         run: echo "${{toJSON(steps)}}"
-    steps:
       - name: Context Runner
         run: echo "${{toJSON(runner)}}"
-    steps:
       - name: Context Secrets
         run: echo "${{toJSON(secrets)}}"
-    steps:
       - name: Context Strategy
         run: echo "${{toJSON(strategy)}}"
-    steps:
       - name: Context Matrix
         run: echo "${{toJSON(matrix)}}"
-    steps:
       - name: Context Needs
         run: echo "${{toJSON(needs)}}"
-    steps:
       - name: Context Inputs
         run: echo "${{toJSON(inputs)}}"
