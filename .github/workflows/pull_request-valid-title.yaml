@@ -1,6 +1,11 @@
 name: Pull_Request - Valid Title
 on:
   pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
 
 jobs:
   pr-title-validation:
