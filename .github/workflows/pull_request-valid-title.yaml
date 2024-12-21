@@ -1,4 +1,4 @@
-name: Pull_Request - Valid Title
+name: Pull_Request - Valid one of title, branch, or description. should contains "PR-1234" format
 on:
   pull_request:
     types:
