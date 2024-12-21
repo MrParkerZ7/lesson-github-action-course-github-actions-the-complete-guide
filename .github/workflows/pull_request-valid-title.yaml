@@ -1,4 +1,4 @@
-name: Pull_Request - One of title/branch/description should contains "PR-1234" format
+name: Pull_Request - Validate Title/Branch/Description
 on:
   pull_request:
     types:
@@ -11,7 +11,7 @@ jobs:
   pr-validation:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if title, branch, or description contains "PR-1234" format
+      - name: Check Title,Branch,Description Must Contains Ticket Key "PR-12345"
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BRANCH="${{ github.event.pull_request.head.ref }}"
