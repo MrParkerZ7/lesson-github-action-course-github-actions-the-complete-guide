@@ -1,4 +1,4 @@
-name: Pull_Request - Valid one of title, branch, or description. should contains "PR-1234" format
+name: Pull_Request - One of title/branch/description should contains "PR-1234" format
 on:
   pull_request:
     types:
@@ -22,7 +22,7 @@ jobs:
           echo "Pull Request Description: $PR_DESCRIPTION"
 
           # Regex to match "PR-" followed by 4 digits
-          if [[ ! "$PR_TITLE" =~ PR-[0-9]{4} && ! "$PR_BRANCH" =~ PR-[0-9]{4} && ! "$PR_DESCRIPTION" =~ PR-[0-9]{4} ]]; then
+          if [[ ! "$PR_TITLE" =~ PR-[0-9]{1,5} && ! "$PR_BRANCH" =~ PR-[0-9]{1,5} && ! "$PR_DESCRIPTION" =~ PR-[0-9]{1,5} ]]; then
             echo "Error: Either the title, branch name, or description must contain 'PR-****' (e.g., PR-1234)"
             exit 1
           fi
