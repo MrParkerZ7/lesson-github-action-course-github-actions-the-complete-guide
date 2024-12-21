@@ -1,4 +1,4 @@
-name: Pull_Request - One of Title/Branch/Description must contains ticket key (PR-12345)
+name: Pull_Request - One of title/branch/description must contains ticket key (PR-12345)
 on:
   pull_request:
     types:
@@ -11,31 +11,28 @@ jobs:
   pr-validation:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Title/Branch/Description Contains "PR-12345"
-        id: validate-pr
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Check title/branch/description Contains "PR-12345"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BRANCH="${{ github.event.pull_request.head.ref }}"
           PR_DESCRIPTION="${{ github.event.pull_request.body }}"
-          
+
           echo "Pull Request Title: $PR_TITLE"
           echo "Pull Request Branch: $PR_BRANCH"
           echo "Pull Request Description: $PR_DESCRIPTION"
 
           # Regex to match "PR-" followed by 1 to 5 digits
           if [[ ! "$PR_TITLE" =~ PR-[0-9]{1,5} && ! "$PR_BRANCH" =~ PR-[0-9]{1,5} && ! "$PR_DESCRIPTION" =~ PR-[0-9]{1,5} ]]; then
-            echo "validation_failed=true" >> $GITHUB_ENV
-          else
-            echo "validation_failed=false" >> $GITHUB_ENV
-
-      - name: Add comment if validation fails
-        if: env.validation_failed == 'true'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            🚨 **Pull Request Validation Failed**
-            One of the following must contain a ticket key in the format `PR-12345`:
-            - Pull Request Title
-            - Pull Request Branch
-            - Pull Request Description
+            echo "Error: Invalid PR. Adding a comment to the PR..."
+            gh pr comment $PR_NUMBER --repo $REPO --body "The PR is invalid. Please ensure the title, branch name, or description contains 'PR-****' (1-5 digits, e.g., PR-1, PR-12345)." || exit 1
+            exit 1
+          fi
