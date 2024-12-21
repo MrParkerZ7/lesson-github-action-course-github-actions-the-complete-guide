@@ -1,4 +1,4 @@
-name: Pull_Request - One of title/branch/description should contains "PR-1234" format
+name: Pull_Request - One of title/branch/description must contains ticket key (PR-12345)
 on:
   pull_request:
     types:
@@ -11,7 +11,22 @@ jobs:
   pr-validation:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if title, branch, or description contains "PR-1234" format
+      - name: Setup GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Authenticate GitHub CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh auth setup-git
+          echo "$GITHUB_TOKEN" | gh auth login --with-token
+
+      - name: Check title/branch/description Contains "PR-12345"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BRANCH="${{ github.event.pull_request.head.ref }}"
@@ -21,8 +36,9 @@ jobs:
           echo "Pull Request Branch: $PR_BRANCH"
           echo "Pull Request Description: $PR_DESCRIPTION"
 
-          # Regex to match "PR-" followed by 4 digits
+          # Regex to match "PR-" followed by 1 to 5 digits
           if [[ ! "$PR_TITLE" =~ PR-[0-9]{1,5} && ! "$PR_BRANCH" =~ PR-[0-9]{1,5} && ! "$PR_DESCRIPTION" =~ PR-[0-9]{1,5} ]]; then
-            echo "Error: Either the title, branch name, or description must contain 'PR-****' (e.g., PR-1234)"
+            echo "Error: Invalid PR. Adding a comment to the PR..."
+            gh pr comment $PR_NUMBER --body "The PR is invalid. Please ensure the title, branch name, or description contains 'PR-****' (1-5 digits, e.g., PR-1, PR-12345)."
             exit 1
           fi
