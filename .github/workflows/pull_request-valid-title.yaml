@@ -11,7 +11,7 @@ jobs:
   pr-validation:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if title, branch, or description contains "PR:"
+      - name: Check if title, branch, or description contains "PR-1234" format
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BRANCH="${{ github.event.pull_request.head.ref }}"
@@ -21,7 +21,8 @@ jobs:
           echo "Pull Request Branch: $PR_BRANCH"
           echo "Pull Request Description: $PR_DESCRIPTION"
 
-          if [[ ! "$PR_TITLE" =~ [Pp][Rr]: && ! "$PR_BRANCH" =~ [Pp][Rr]: && ! "$PR_DESCRIPTION" =~ [Pp][Rr]: ]]; then
-            echo "Error: Either the title, branch name, or description must contain 'PR:' (case-insensitive)"
+          # Regex to match "PR-" followed by 4 digits
+          if [[ ! "$PR_TITLE" =~ PR-[0-9]{4} && ! "$PR_BRANCH" =~ PR-[0-9]{4} && ! "$PR_DESCRIPTION" =~ PR-[0-9]{4} ]]; then
+            echo "Error: Either the title, branch name, or description must contain 'PR-****' (e.g., PR-1234)"
             exit 1
           fi
