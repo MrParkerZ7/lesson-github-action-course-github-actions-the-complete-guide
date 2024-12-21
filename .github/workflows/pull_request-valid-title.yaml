@@ -33,7 +33,7 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          message: |
+          body: |
             🚨 **Pull Request Validation Failed**
             One of the following must contain a ticket key in the format `PR-12345`:
             - Pull Request Title
