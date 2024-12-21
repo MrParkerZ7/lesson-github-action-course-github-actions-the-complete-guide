@@ -8,14 +8,20 @@ on:
       - synchronize
 
 jobs:
-  pr-title-validation:
+  pr-validation:
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR title contains "PR:"
+      - name: Check if title, branch, or description contains "PR:"
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BRANCH="${{ github.event.pull_request.head.ref }}"
+          PR_DESCRIPTION="${{ github.event.pull_request.body }}"
+          
           echo "Pull Request Title: $PR_TITLE"
-          if [[ ! "$PR_TITLE" =~ [Pp][Rr]: ]]; then
-            echo "Error: PR title must contain 'PR:' (case-insensitive)"
+          echo "Pull Request Branch: $PR_BRANCH"
+          echo "Pull Request Description: $PR_DESCRIPTION"
+
+          if [[ ! "$PR_TITLE" =~ [Pp][Rr]: && ! "$PR_BRANCH" =~ [Pp][Rr]: && ! "$PR_DESCRIPTION" =~ [Pp][Rr]: ]]; then
+            echo "Error: Either the title, branch name, or description must contain 'PR:' (case-insensitive)"
             exit 1
           fi
